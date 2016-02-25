@@ -8,14 +8,21 @@
   <link rel="icon" type="image/x-icon" href="http://cartodb.github.io/odyssey.js/sandbox/favicon.png">
   <link rel="icon" type="image/png" href="http://cartodb.github.io/odyssey.js/sandbox/favicon.png">
 
+  <!-- cartoDB and odyssey -->
   <link rel="stylesheet" href="http://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/themes/css/cartodb.css">
   <link rel="stylesheet" href="http://cartodb.github.io/odyssey.js/sandbox/css/slides.css">
   <script src="http://cartodb.github.io/odyssey.js/vendor/modernizr-2.6.2.min.js"></script>
 
+  <!-- jquery -->
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
+  <!-- leaflet -->
+  <script src="../../leaflet-0.7.3/leaflet-src.js"></script>
+  <link rel="stylesheet" href="../../leaflet-0.7.3/leaflet.css" />
+
+  <!-- google fonts: Roboto -->
   <link href='https://fonts.googleapis.com/css?family=Roboto:400,900,700,500,300' rel='stylesheet' type='text/css'>
 
 
@@ -102,6 +109,16 @@
 
     img {
       width: 580px;
+    }
+
+
+    }
+
+    .icon div {
+      width: 30px;
+      height: 30px;
+      background-size: 100%;
+      background-image: url("images/highlight.svg");
     }
 
 
@@ -380,8 +397,14 @@
         $(this).addClass('activebox');
     });
 
+    var Icon = L.divIcon({
+        className: 'icon',
+        html: '<div id="icon"></div>',
+        iconSize: null,
+        iconAnchor: null
+    });
 
-  
+    var icon = L.marker([37.8110, -122.4107], {icon: Icon}).addTo(map);
 
 
   </script>
