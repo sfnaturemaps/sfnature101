@@ -389,12 +389,12 @@
 
     });
 
-    // O.Story()
-    //   .addState(
-    //     O.Scroll().within($('#map'),
-    //     L.marker([37.8110, -122.4107]).actions.addTo(map)
-    //   ));
 
+    var marker = L.marker([0, 0])
+    O.Story().addState(
+        O.Scroll().within($('#myelement'),
+        marker.actions.icon('images/highlight.svg', 'images/highlight.svg')
+      ));
 
 
     
