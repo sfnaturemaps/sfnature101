@@ -142,8 +142,6 @@
       className: 'myIcon'
     });
   
-    $('div.leaflet-top.leaflet-left').removeClass('leaflet-left').addClass('leaflet-right');
-  
     var resizePID;
     function clearResize() {
       clearTimeout(resizePID);
@@ -233,6 +231,8 @@
           seq.current(0);
         });
         $('a').attr('target', '_blank');
+        
+        L.control.zoom({position: 'topright'}).addTo(map);
       },
       update: function(actions) {
         var self = this;
