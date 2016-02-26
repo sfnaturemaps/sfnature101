@@ -112,18 +112,6 @@
     }
 
 
-    }
-
-    .icon div {
-      width: 30px;
-      height: 30px;
-      background-size: 100%;
-      background-image: url("images/highlight.svg");
-    }
-
-
-
-
   </style>
 
 </head>
@@ -282,25 +270,6 @@
         });
 
         $('a').attr('target', '_blank');
-
-        var Icon = L.divIcon({
-            className: 'icon',
-            html: '<div id="icon"></div>',
-            iconSize: null,
-            iconAnchor: null
-        });
-
-        
-        // L.marker([37.8110, -122.4107], {icon: Icon}).addTo(map);
-
-        // var marker = L.marker([37.8110, -122.4107]);
-
-        // O.Story()
-        //   .addState(
-        //     O.Scroll().within($('#marker'),
-        //     marker.actions.addTo(map)
-        //   );
-
       },
 
       update: function(actions) {
