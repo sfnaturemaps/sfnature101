@@ -8,21 +8,14 @@
   <link rel="icon" type="image/x-icon" href="http://cartodb.github.io/odyssey.js/sandbox/favicon.png">
   <link rel="icon" type="image/png" href="http://cartodb.github.io/odyssey.js/sandbox/favicon.png">
 
-  <!-- cartoDB and odyssey -->
   <link rel="stylesheet" href="http://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/themes/css/cartodb.css">
   <link rel="stylesheet" href="http://cartodb.github.io/odyssey.js/sandbox/css/slides.css">
   <script src="http://cartodb.github.io/odyssey.js/vendor/modernizr-2.6.2.min.js"></script>
 
-  <!-- jquery -->
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
-  <!-- leaflet -->
-  <!--<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />-->
-  <!--<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>-->
-
-  <!-- google fonts: Roboto -->
   <link href='https://fonts.googleapis.com/css?family=Roboto:400,900,700,500,300' rel='stylesheet' type='text/css'>
 
 
@@ -33,9 +26,7 @@
       top: 800px;
       width: 570px;
       height: 100px;
-
     }
-
     .boxes {
       position: relative;
       display: inline-block;
@@ -50,27 +41,22 @@
       font-size: 24px;
       font-weight: 700;
     }
-
     .activebox {
       color: white;
       background-color: #0074A1;
       border: 2px solid white;
     }
-
     #slides_container {
       border: 2px solid #0074A1;
       width: 600px;
       height: 720px;
     }
-
     div {
       font-family: 'Roboto', sans-serif;
     }
-
     .next {
       color: #0074A1;
     }
-
     #slide_title {
       background-color: #0074A1;
       color: white;
@@ -83,41 +69,31 @@
       width:100%;
       padding: 20px;
       padding-right: 40px;
-
     }
-
     #slides {
       height: 400px;
     }
-
     #dots li a:before{
       font-size: 28px;
     }
-
     #dots li a {
       opacity:0.3;
       color:#0074A1;
     }
-
     #dots li a.active {
       opacity:1;
     }
-
     a.next{
       background-position: center;
     }
-
     img {
       width: 580px;
     }
-
-
   </style>
 
 </head>
 <body>
   <div id="map" style="width: 100%; height: 100%;"></div>
-  <div id="marker"></div>
 
   <div id="slides_container" style="display:block;">
 
@@ -153,16 +129,11 @@
   <!-- <script src="http://cartodb.github.io/odyssey.js/dist/odyssey.js" charset="UTF-8"></script> -->
 
   <script>
-
-
-
     var resizePID;
-
     function clearResize() {
       clearTimeout(resizePID);
       resizePID = setTimeout(function() { adjustSlides(); }, 100);
     }
-
     if (!window.addEventListener) {
       window.attachEvent("resize", function load(event) {
         clearResize();
@@ -172,40 +143,32 @@
         clearResize();
       });
     }
-
     function adjustSlides() {
       var container = document.getElementById("slides_container"),
           slide = document.querySelectorAll('.selected_slide')[0];
-
       if (slide) {
         if (slide.offsetHeight+169+40+80 >= window.innerHeight) {
           container.style.bottom = "80px";
-
           var h = container.offsetHeight;
-
           slide.style.height = h-169+"px";
           slide.classList.add("scrolled");
         } else {
           container.style.bottom = "auto";
           container.style.minHeight = "0";
-
           slide.style.height = "auto";
           slide.classList.remove("scrolled");
         }
       }
     }
-
     var resizeAction = O.Action(function() {
       function imageLoaded() {
         counter--;
-
         if (counter === 0) {
           adjustSlides();
         }
       }
       var images = $('img');
       var counter = images.length;
-
       images.each(function() {
         if (this.complete) {
           imageLoaded.call( this );
@@ -214,167 +177,121 @@
         }
       });
     });
-
     function click(el) {
       var element = O.Core.getElement(el);
       var t = O.Trigger();
-
       // TODO: clean properly
       function click() {
         t.trigger();
       }
-
       if (element) element.onclick = click;
-
       return t;
     }
-
     O.Template({
       init: function() {
         var seq = O.Triggers.Sequential();
-
         var baseurl = this.baseurl = 'http://{s}.api.cartocdn.com/base-light/{z}/{x}/{y}.png';
         var map = this.map = L.map('map').setView([0, 0.0], 4);
         var basemap = this.basemap = L.tileLayer(baseurl, {
           attribution: 'data OSM - map CartoDB'
         }).addTo(map);
-
         // enable keys to move
         O.Keys().on('map').left().then(seq.prev, seq)
         O.Keys().on('map').right().then(seq.next, seq)
-
         click(document.querySelectorAll('.next')).then(seq.next, seq)
         click(document.querySelectorAll('.prev')).then(seq.prev, seq)
-
         var slides = O.Actions.Slides('slides');
         var story = O.Story()
-
         this.story = story;
         this.seq = seq;
         this.slides = slides;
         this.progress = O.UI.DotProgress('dots').count(0);
-
-
         //added by DKD at GreenInfo: When clicking on one of the boxes under the story panel, 
         //seq.current(0) sets the story slide to the first one
         $('#wildlands_box').click(function(){
           seq.current(0);
         });
-
         $('#bike-rides_box').click(function(){
           seq.current(0);
         });
-
         $('#wildlife_box').click(function(){
           seq.current(0);
         });
-
         $('a').attr('target', '_blank');
       },
-
       update: function(actions) {
         var self = this;
-
         if (!actions.length) return;
-
         this.story.clear();
-
         if (this.baseurl && (this.baseurl !== actions.global.baseurl)) {
           this.baseurl = actions.global.baseurl || 'http://0.api.cartocdn.com/base-light/{z}/{x}/{y}.png';
-
           this.basemap.setUrl(this.baseurl);
         }
-
         if (this.cartoDBLayer && ("http://"+self.cartoDBLayer.options.user_name+".cartodb.com/api/v2/viz/"+self.cartoDBLayer.options.layer_definition.stat_tag+"/viz.json" !== actions.global.vizjson)) {
           this.map.removeLayer(this.cartoDBLayer);
-
           this.cartoDBLayer = null;
           this.created = false;
         }
-
         if (actions.global.vizjson && !this.cartoDBLayer) {
           if (!this.created) { // sendCode debounce < vis loader
             cdb.vis.Loader.get(actions.global.vizjson, function(vizjson) {
               self.map.fitBounds(vizjson.bounds);
-
               cartodb.createLayer(self.map, vizjson)
                 .done(function(layer) {
                   self.cartoDBLayer = layer;
-
                   var sublayer = layer.getSubLayer(0),
                       layer_name = layer.layers[0].options.layer_name,
                       filter = actions.global.cartodb_filter ? " WHERE "+actions.global.cartodb_filter : "";
-
                   // sublayer.setSQL("SELECT * FROM "+layer_name+filter)
-
                   self.map.addLayer(layer);
-
                   self._resetActions(actions);
                 }).on('error', function(err) {
                   console.log("some error occurred: " + err);
                 });
             });
-
             this.created = true;
           }
-
           return;
         }
-
         this._resetActions(actions);
       },
-
       _resetActions: function(actions) {
         // update footer title and author
         var title_ = actions.global.title === undefined ? '' : actions.global.title,
             author_ = actions.global.author === undefined ? 'Using' : 'By '+actions.global.author+' using';
-
         document.getElementById('title').innerHTML = title_;
         document.getElementById('author').innerHTML = author_;
         document.title = title_ + " | " + author_ +' Odyssey.js';
-
         var sl = actions;
-
         document.getElementById('slides').innerHTML = ''
         this.progress.count(sl.length);
-
-
         // create new story
         for(var i = 0; i < sl.length; ++i) {
           var slide = sl[i];
           var tmpl = "<div class='slide' style='diplay:none'>";
-
           tmpl += slide.html();
           tmpl += "</div>";
           document.getElementById('slides').innerHTML += tmpl;
-
           this.progress.step(i).then(this.seq.step(i), this.seq)
-
           var actions = O.Parallel(
             this.slides.activate(i),
             slide(this),
             this.progress.activate(i),
             resizeAction
           );
-
           actions.on("finish.app", function() {
             adjustSlides();
           });
-
           this.story.addState(
             this.seq.step(i),
             actions
           )
         }
-
         this.story.go(this.seq.current());
       },
-
       changeSlide: function(n) {
         this.seq.current(n);
       },
-
-
     });
     
     //activate .boxes active css style
@@ -382,10 +299,7 @@
         $('.boxes').removeClass('activebox');
         $(this).addClass('activebox');
     });
-
-
-
-
+  
   </script>
 
   <script>
@@ -393,7 +307,6 @@
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
     ga('create', 'UA-20934186-21', 'cartodb.github.io');
     ga('send', 'pageview');
   </script>
@@ -412,11 +325,9 @@
 
 #Pier 39 - Sea Lions
 ```
-L.marker([37.8110, -122.4107]).actions.addRemove(S.map)
 ```
 ![Sea Lions](images\sealions.png)
 Pier 39 is not just for tourists shivering in Bermuda shorts. It’s also been home to sea lions since the early 1990s, when they began hauling out onto the dock and turning the surrounding pier into a prime wildlife watching spot. The sea lions, protected under the Marine Mammal Protection Act, can still be seen today sunning on the pier.  A few are here year-round, but best time to visit is late July to mid-May. [Read more.](http://www.pier39.com/home/the-sea-lion-story/sea-lion-qa/)
-
 
 
 #Botanical Garden - Birds
