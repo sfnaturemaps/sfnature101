@@ -20,6 +20,12 @@
 
 
   <style>
+    .myIcon {
+      height: 30px;
+      width: 30px;
+      background-color: red;
+    }
+  
     #mainbox {
       left: 0px;
       position: absolute;
@@ -129,6 +135,9 @@
   <!-- <script src="http://cartodb.github.io/odyssey.js/dist/odyssey.js" charset="UTF-8"></script> -->
 
   <script>
+    var myIcon = L.divIcon({className: 'myIcon'});
+  
+  
     var resizePID;
     function clearResize() {
       clearTimeout(resizePID);
@@ -195,9 +204,6 @@
         var basemap = this.basemap = L.tileLayer(baseurl, {
           attribution: 'data OSM - map CartoDB'
         }).addTo(map);
-        
-        L.marker([37.5,-122.4]).addTo(map);
-  
         // enable keys to move
         O.Keys().on('map').left().then(seq.prev, seq)
         O.Keys().on('map').right().then(seq.next, seq)
@@ -328,7 +334,8 @@
 
 #Pier 39 - Sea Lions
 ```
-L.marker([37.8110, -122.4107]).actions.addRemove(S.map)
+L.marker([37.8110, -123.1407],{icon: myIcon}).bindPopup('<a href="http://www.google.com">Test</a>').addTo(S.map).actions.addRemove(S.map)
+
 ```
 ![Sea Lions](images\sealions.png)
 Pier 39 is not just for tourists shivering in Bermuda shorts. It’s also been home to sea lions since the early 1990s, when they began hauling out onto the dock and turning the surrounding pier into a prime wildlife watching spot. The sea lions, protected under the Marine Mammal Protection Act, can still be seen today sunning on the pier.  A few are here year-round, but best time to visit is late July to mid-May. [Read more.](http://www.pier39.com/home/the-sea-lion-story/sea-lion-qa/)
