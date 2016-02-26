@@ -129,6 +129,7 @@
 </head>
 <body>
   <div id="map" style="width: 100%; height: 100%;"></div>
+  <div id="marker"></div>
 
   <div id="slides_container" style="display:block;">
 
@@ -282,20 +283,22 @@
 
         $('a').attr('target', '_blank');
 
-        var Icon = L.divIcon({
-            className: 'icon',
-            html: '<div id="icon"></div>',
-            iconSize: null,
-            iconAnchor: null
-        });
+        // var Icon = L.divIcon({
+        //     className: 'icon',
+        //     html: '<div id="icon"></div>',
+        //     iconSize: null,
+        //     iconAnchor: null
+        // });
 
         
-        L.marker([37.8110, -122.4107], {icon: Icon}).addTo(map);
+        // L.marker([37.8110, -122.4107], {icon: Icon}).addTo(map);
 
-        // O.Story().addState(
-        //     O.Scroll().within($('#map'),
-        //     L.marker([37.8110, -122.4107]).actions.icon('images/highlight.svg', 'images/highlight.svg')
-        //   ));
+        O.Story()
+          .addState(
+            O.Scroll().within($('#marker'),
+            L.marker([37.8110, -122.4107]).actions.addTo(map)
+          );
+
       },
 
       update: function(actions) {
