@@ -11,20 +11,113 @@
   <link rel="stylesheet" href="http://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/themes/css/cartodb.css">
   <link rel="stylesheet" href="http://cartodb.github.io/odyssey.js/sandbox/css/slides.css">
   <script src="http://cartodb.github.io/odyssey.js/vendor/modernizr-2.6.2.min.js"></script>
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,900,700,500,300' rel='stylesheet' type='text/css'>
+
+
+  <style>
+    #mainbox {
+      left: 0px;
+      position: absolute;
+      top: 800px;
+      width: 570px;
+      height: 100px;
+    }
+    .boxes {
+      position: relative;
+      display: inline-block;
+      padding: 15px;
+      margin: 10px;
+      background-color: white;
+      line-height: 24px;
+      border: 2px solid #0074A1;
+      text-align: center;
+      cursor: pointer;
+      color: #0074A1;
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .activebox {
+      color: white;
+      background-color: #0074A1;
+      border: 2px solid white;
+    }
+    #slides_container {
+      border: 2px solid #0074A1;
+      width: 600px;
+      height: 720px;
+    }
+    div {
+      font-family: 'Roboto', sans-serif;
+    }
+    .next {
+      color: #0074A1;
+    }
+    #slide_title {
+      background-color: #0074A1;
+      color: white;
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 30px;
+      left:0;
+      top:0;
+      transform: translate(-40px, -40px);
+      width:100%;
+      padding: 20px;
+      padding-right: 40px;
+    }
+    #slides {
+      height: 400px;
+    }
+    #dots li a:before{
+      font-size: 28px;
+    }
+    #dots li a {
+      opacity:0.3;
+      color:#0074A1;
+    }
+    #dots li a.active {
+      opacity:1;
+    }
+    a.next{
+      background-position: center;
+    }
+    img {
+      width: 580px;
+    }
+  </style>
+
 </head>
 <body>
   <div id="map" style="width: 100%; height: 100%;"></div>
 
   <div id="slides_container" style="display:block;">
-    <div id="dots"></div>
+
+    <div id="slide_title">TOP 5 WILDLIFE VIEWING SPOTS</div>
 
     <div id="slides"></div>
+    <div style="right: 10px; position: relative; top: 250px; float: right; width: 200px; height: 30px;">
 
-    <ul id="navButtons">
-      <li><a class="prev"></a></li>
-      <li><a class="next"></a></li>
-    </ul>
+      <div id="dots" style="float: left; display: inline-block;"></div>
+
+      <ul id="navButtons" style="margin-top: 0px; float: right; display: inline-block;">
+        <li><a class="prev"></a></li>
+        <li><a class="next"></a></li>
+      </ul>
+    </div>
+
+    <div id="mainbox">  
+      <button id="wildlife_box" class="boxes activebox">WILDLIFE</button>
+      <button id="wildlands_box" class="boxes">WILDLANDS</button>
+      <button id="bike-rides_box" class="boxes">BIKE RIDES</button>
+    </div>
+
   </div>
+
 
   <div id="credits">
     <span class="title" id="title">Title</span>
@@ -32,16 +125,15 @@
   </span></span></div>
 
   <script src="http://cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/cartodb.js"></script>
-  <script src="http://cartodb.github.io/odyssey.js/dist/odyssey.js" charset="UTF-8"></script>
+  <script src="Odyssey_GIN.js" charset="UTF-8"></script>
+  <!-- <script src="http://cartodb.github.io/odyssey.js/dist/odyssey.js" charset="UTF-8"></script> -->
 
   <script>
     var resizePID;
-
     function clearResize() {
       clearTimeout(resizePID);
       resizePID = setTimeout(function() { adjustSlides(); }, 100);
     }
-
     if (!window.addEventListener) {
       window.attachEvent("resize", function load(event) {
         clearResize();
@@ -51,40 +143,32 @@
         clearResize();
       });
     }
-
     function adjustSlides() {
       var container = document.getElementById("slides_container"),
           slide = document.querySelectorAll('.selected_slide')[0];
-
       if (slide) {
         if (slide.offsetHeight+169+40+80 >= window.innerHeight) {
           container.style.bottom = "80px";
-
           var h = container.offsetHeight;
-
           slide.style.height = h-169+"px";
           slide.classList.add("scrolled");
         } else {
           container.style.bottom = "auto";
           container.style.minHeight = "0";
-
           slide.style.height = "auto";
           slide.classList.remove("scrolled");
         }
       }
     }
-
     var resizeAction = O.Action(function() {
       function imageLoaded() {
         counter--;
-
         if (counter === 0) {
           adjustSlides();
         }
       }
       var images = $('img');
       var counter = images.length;
-
       images.each(function() {
         if (this.complete) {
           imageLoaded.call( this );
@@ -93,148 +177,129 @@
         }
       });
     });
-
     function click(el) {
       var element = O.Core.getElement(el);
       var t = O.Trigger();
-
       // TODO: clean properly
       function click() {
         t.trigger();
       }
-
       if (element) element.onclick = click;
-
       return t;
     }
-
     O.Template({
       init: function() {
         var seq = O.Triggers.Sequential();
-
         var baseurl = this.baseurl = 'http://{s}.api.cartocdn.com/base-light/{z}/{x}/{y}.png';
         var map = this.map = L.map('map').setView([0, 0.0], 4);
         var basemap = this.basemap = L.tileLayer(baseurl, {
           attribution: 'data OSM - map CartoDB'
         }).addTo(map);
-
-        // enanle keys to move
+        // enable keys to move
         O.Keys().on('map').left().then(seq.prev, seq)
         O.Keys().on('map').right().then(seq.next, seq)
-
         click(document.querySelectorAll('.next')).then(seq.next, seq)
         click(document.querySelectorAll('.prev')).then(seq.prev, seq)
-
         var slides = O.Actions.Slides('slides');
         var story = O.Story()
-
         this.story = story;
         this.seq = seq;
         this.slides = slides;
         this.progress = O.UI.DotProgress('dots').count(0);
+        //added by DKD at GreenInfo: When clicking on one of the boxes under the story panel, 
+        //seq.current(0) sets the story slide to the first one
+        $('#wildlands_box').click(function(){
+          seq.current(0);
+        });
+        $('#bike-rides_box').click(function(){
+          seq.current(0);
+        });
+        $('#wildlife_box').click(function(){
+          seq.current(0);
+        });
+        $('a').attr('target', '_blank');
       },
-
       update: function(actions) {
         var self = this;
-
         if (!actions.length) return;
-
         this.story.clear();
-
         if (this.baseurl && (this.baseurl !== actions.global.baseurl)) {
           this.baseurl = actions.global.baseurl || 'http://0.api.cartocdn.com/base-light/{z}/{x}/{y}.png';
-
           this.basemap.setUrl(this.baseurl);
         }
-
         if (this.cartoDBLayer && ("http://"+self.cartoDBLayer.options.user_name+".cartodb.com/api/v2/viz/"+self.cartoDBLayer.options.layer_definition.stat_tag+"/viz.json" !== actions.global.vizjson)) {
           this.map.removeLayer(this.cartoDBLayer);
-
           this.cartoDBLayer = null;
           this.created = false;
         }
-
         if (actions.global.vizjson && !this.cartoDBLayer) {
           if (!this.created) { // sendCode debounce < vis loader
             cdb.vis.Loader.get(actions.global.vizjson, function(vizjson) {
               self.map.fitBounds(vizjson.bounds);
-
               cartodb.createLayer(self.map, vizjson)
                 .done(function(layer) {
                   self.cartoDBLayer = layer;
-
                   var sublayer = layer.getSubLayer(0),
                       layer_name = layer.layers[0].options.layer_name,
                       filter = actions.global.cartodb_filter ? " WHERE "+actions.global.cartodb_filter : "";
-
-                  sublayer.setSQL("SELECT * FROM "+layer_name+filter)
-
+                  // sublayer.setSQL("SELECT * FROM "+layer_name+filter)
                   self.map.addLayer(layer);
-
                   self._resetActions(actions);
                 }).on('error', function(err) {
                   console.log("some error occurred: " + err);
                 });
             });
-
             this.created = true;
           }
-
           return;
         }
-
         this._resetActions(actions);
       },
-
       _resetActions: function(actions) {
         // update footer title and author
         var title_ = actions.global.title === undefined ? '' : actions.global.title,
             author_ = actions.global.author === undefined ? 'Using' : 'By '+actions.global.author+' using';
-
         document.getElementById('title').innerHTML = title_;
         document.getElementById('author').innerHTML = author_;
         document.title = title_ + " | " + author_ +' Odyssey.js';
-
         var sl = actions;
-
         document.getElementById('slides').innerHTML = ''
         this.progress.count(sl.length);
-
         // create new story
         for(var i = 0; i < sl.length; ++i) {
           var slide = sl[i];
           var tmpl = "<div class='slide' style='diplay:none'>";
-
           tmpl += slide.html();
           tmpl += "</div>";
           document.getElementById('slides').innerHTML += tmpl;
-
           this.progress.step(i).then(this.seq.step(i), this.seq)
-
           var actions = O.Parallel(
             this.slides.activate(i),
             slide(this),
             this.progress.activate(i),
             resizeAction
           );
-
           actions.on("finish.app", function() {
             adjustSlides();
           });
-
           this.story.addState(
             this.seq.step(i),
             actions
           )
         }
-
         this.story.go(this.seq.current());
       },
-
       changeSlide: function(n) {
         this.seq.current(n);
-      }
+      },
     });
+    
+    //activate .boxes active css style
+    $('.boxes').click(function(){
+        $('.boxes').removeClass('activebox');
+        $(this).addClass('activebox');
+    });
+  
   </script>
 
   <script>
@@ -242,67 +307,119 @@
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
     ga('create', 'UA-20934186-21', 'cartodb.github.io');
     ga('send', 'pageview');
   </script>
 
   <script type="text/javascript" src="http://fast.fonts.net/jsapi/3af16084-ba56-49ca-b37d-0b49b59e1927.js"></script>
 
-<script type="text/template" id="md_template">```
--baseurl: "http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg"
--title: "Children in Nature Map"
+<script type="text/template" id="md_template1">
+```
+-baseurl: "http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png"
+-title: "WILDLIFE"
 -author: "SF Nature Mapping Project"
+-vizjson: "https://sfnaturemaps.cartodb.com/api/v2/viz/cf171ec2-da8a-11e5-9b00-0e787de82d45/viz.json"
+-center: [37.8110, -123.1407]
+-zoom: 13
 ```
 
-#Wildlife Hotspots
+#Pier 39 - Sea Lions
 ```
 L.marker([37.8110, -122.4107]).actions.addRemove(S.map)
-L.marker([37.7684, -122.4718]).actions.addRemove(S.map)
-L.marker([37.7698, -122.4667]).actions.addRemove(S.map)
-L.marker([37.7850, -122.5096]).actions.addRemove(S.map)
-L.marker([37.7380, -122.3729]).actions.addRemove(S.map)
-- center: [37.7573, -122.5077]
-- zoom: 12
 ```
-Best places for kids to see wildlife in San Francisco!
-![San Francisco](http://www.alliancefornaturalareas.org/wp-content/uploads/2014/06/sfana_pfl_lepidoptera-e1403808659151.png)
-
-1. Pier 39 (Sea Lions)
-2. Botanical Garden (Birds)
-3. Strawberry Hill/Stow Lake (Butterflies)
-4. Land's End/Sutro Heights (Birds)
-5. Heron's Head Park (Birds)
+![Sea Lions](images\sealions.png)
+Pier 39 is not just for tourists shivering in Bermuda shorts. It’s also been home to sea lions since the early 1990s, when they began hauling out onto the dock and turning the surrounding pier into a prime wildlife watching spot. The sea lions, protected under the Marine Mammal Protection Act, can still be seen today sunning on the pier.  A few are here year-round, but best time to visit is late July to mid-May. [Read more.](http://www.pier39.com/home/the-sea-lion-story/sea-lion-qa/)
 
 
-#Wild Lands
+#Botanical Garden - Birds
 ```
-L.marker([37.8072, -122.4428]).actions.addRemove(S.map)
-L.marker([37.7869, -122.5080]).actions.addRemove(S.map)
-L.marker([37.7652, -122.4394]).actions.addRemove(S.map)
-L.marker([37.7404, -122.4418]).actions.addRemove(S.map)
-L.marker([37.7526, -122.4476]).actions.addRemove(S.map)
 ```
-Best places to explore nature!
-![San Francisco](http://www.alliancefornaturalareas.org/wp-content/uploads/2014/06/sfana_pfl_glencanyon1-e1403808859992.png)
+![Swallowtail](images\swallowtail.png)
+Plants aren’t the only attraction at the 55-acre San Francisco Botanical Garden in Golden Gate Park. Turns out that a garden with 8,000 kinds of plants also attracts a crazy variety of birds! And with lots of nearby parking, easy paths, benches, and bathrooms, this might be the most kid-friendly birding spot anywhere.
 
-1. Crissy Field
-2. Land's End
-3. Glen Canyon
-4. Corona Heights
-5. Twin Peaks
-
-#Wild Rides
+#Strawberry Hill/Stow Lake- Butterflies
 ```
-L.marker([37.7223, -122.4973]).actions.addRemove(S.map)
-L.marker([37.7720, -122.4652]).actions.addRemove(S.map)
-L.marker([37.8069, -122.4398]).actions.addRemove(S.map)
-L.marker([37.7579, -122.5100]).actions.addRemove(S.map)
 ```
-Best Places for Kids to Ride a Bike in a Park!
-![San Francisco](http://sf.streetsblog.org/wp-content/uploads/sites/3/2015/03/7337166194_fd83cf49b3_b.jpg)
+Swallowtail butterflies are big and beautiful! Strawberry Hill -- really an island on Stow Lake -- is great swallowtail butterfly habitats. While you’re out butterfly spotting, check out the hill’s trails, waterfall, picnic sites, and incredible views. Strawberry Hill is a perfect escape into nature right in Golden Gate Park.
 
-1. Golden Gate Park (Sundays)
-2. Ocean Beach (Anytime)
-3. Lake Merced (Anytime)
-4. Marina Green/Crissy Field (Weekdays)</script></body></html>
+#Land's End/Sutro Heights - Birds
+```
+```
+The cliffs of Land’s End are amazing all year, but fall is the time to come here often and watch for migrating birds especially hawks! On the far northwest edge of the peninsula, San Francisco’s Sutro Heights Park and Land’s End offer trails, rugged terrain, and great ocean views. 
+
+#Heron's Head Park - Birds
+```
+```
+This 22-acre park near Hunter’s Point is a great place to see all kinds of seabirds, cool marshes, and big ships going by in the bay. Learn more about the wildlife in the park at the Heron’s Head Park EcoCenter, or walk south along the shore to a playground at India Basin Shoreline Park.
+
+
+</script>
+
+<script type="text/template" id="md_template2">
+```
+-baseurl: "http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png"
+-title: "WILDLANDS"
+-author: "SF Nature Mapping Project"
+-vizjson: "https://sfnaturemaps.cartodb.com/api/v2/viz/e818e2b6-d9c2-11e5-a735-0e674067d321/viz.json"
+-center: [37.8110, -122.4407]
+-zoom: 13
+```
+
+#Crissy Field
+```
+With the Golden Gate Bridge looming overhead and the wild bay at your feet, you can’t go wrong at Crissy Field. Build a sandcastle, play on the grass, bring a picnic, watch windsurfers go by, and definitely keep an eye out for porpoises and dolphins!
+
+#Land's End
+```
+NO INFO YET 
+
+#Glen Canyon
+```
+Glen Canyon Park is a sprawling urban canyon with walking and hiking trails that offer views of wildlife, geologic formations, springtime wildflowers, and plenty of jolly dogs. The 3.7 miles of trails through the canyon offer something for everyone, from leisurely walks to challenging hikes. The park is also home to Islais Creek, the largest remaining free-flowing creek in the city.
+
+#Corona Heights
+
+Corona Heights Park in the Castro boasts some of the best views in city. Hike up to the top and keep an eye out for cool rock formations, wildflowers, and callippe silverspot butterflies. In fall 2016, the Randall Museum will reopen, cementing this hill’s reputation as one of the top family destinations in the city.
+
+
+#Twin Peaks
+
+Most visitors enjoy Twin Peaks’ stunning views from the north peak parking lot, but don’t miss the chance to hike up the 0.7 mile trail network to the very top, where you can find 360-degree views of the San Francisco Bay area. The park, nested in grassland and coastal scrub habitats, also offers glimpses of the occasional coyote and mission blue butterfly. 
+
+
+
+</script>  
+
+<script type="text/template" id="md_template3">
+```
+-baseurl: "http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png"
+-title: "BIKE RIDES"
+-author: "SF Nature Mapping Project"
+-vizjson: "https://sfnaturemaps.cartodb.com/api/v2/viz/e818e2b6-d9c2-11e5-a735-0e674067d321/viz.json"
+-center: [37.8110, -122.4407]
+-zoom: 13
+```
+
+#Golden Gate Park - Sundays
+```
+Though Golden Gate Park is open to bicyclists all days of the week, on Sundays and holidays the park’s main entrance on John F Kennedy Drive is closed to vehicles. That’s a great day to hit the park with your kids for safe pedalling among other bikers, runners, and rollerbladers. 
+
+#Ocean Beach - Anytime
+```
+Ocean Beach, on the far western edge of the city, is often a good place to get sandblasted by a cold wind. But when the sun shines and the coast is warm, this 3.5-mile beach is paradise for biking, strolling, jogging, and kite-flying. 
+
+#Lake Merced - Anytime
+
+Lake Merced, in southwest San Francisco, is a large freshwater lake popular with hikers, cyclists, boaters, and nature lovers. The park features paved trails, a fishing pier and boathouse, and several picnic areas.
+
+#Marina Green/Crissy Field - Weekdays
+
+Crissy Field offers a wide array of activities for outdoor enthusiasts and nature lovers. With trails, picnic areas, beaches, and open green spaces, this 100-acre park in the Presidio is a great place to spend a day outside. Don’t miss the San Francisco Bay Trail, where visitors can bike, stroll, or jog with views of the Golden Gate Bridge. On weekends the paths become more crowded with a lot of fast bikes whizzing by.
+
+#Panhandle - Weekends
+Next to Golden Gate Park, this peninsula park offers a meandering bike path underneath magnificent hardwood trees. While bikers can whiz by during commute times, the park offers some concrete oases to wait for them to pass and for beginners to practice their biking skills.
+
+
+</script>
+
+</body></html>
