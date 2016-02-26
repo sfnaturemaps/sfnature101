@@ -20,7 +20,7 @@
 
 
   <style>
-    .myIcon {
+    .myIcon div {
       height: 30px;
       width: 30px;
       background-size: 100%;
@@ -136,7 +136,10 @@
   <!-- <script src="http://cartodb.github.io/odyssey.js/dist/odyssey.js" charset="UTF-8"></script> -->
 
   <script>
-    var myIcon = L.divIcon({className: 'myIcon'});
+    var myIcon = L.divIcon({
+      className: 'myIcon',
+      html: '<div></div>'
+    });
   
   
     var resizePID;
