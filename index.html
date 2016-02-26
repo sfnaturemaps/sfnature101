@@ -232,7 +232,7 @@
         });
         $('a').attr('target', '_blank');
         
-        L.control.zoom({position: 'topright'}).addTo(map);
+        L.control.zoom.setPosition('topright');
       },
       update: function(actions) {
         var self = this;
