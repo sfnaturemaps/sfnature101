@@ -195,6 +195,9 @@
         var basemap = this.basemap = L.tileLayer(baseurl, {
           attribution: 'data OSM - map CartoDB'
         }).addTo(map);
+        
+        L.marker([37.5,-122.4]).addTo(map);
+  
         // enable keys to move
         O.Keys().on('map').left().then(seq.prev, seq)
         O.Keys().on('map').right().then(seq.next, seq)
@@ -300,8 +303,6 @@
         $(this).addClass('activebox');
     });
     
-    L.marker([37.5,-122.4]).addTo(map);
-  
   </script>
 
   <script>
