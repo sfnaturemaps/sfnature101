@@ -293,11 +293,14 @@
         
         // L.marker([37.8110, -122.4107], {icon: Icon}).addTo(map);
 
+        var marker = L.marker([37.8110, -122.4107]);
+
         O.Story()
           .addState(
             O.Scroll().within($('#marker'),
-            L.marker([37.8110, -122.4107]).actions.addTo(map)
-          );
+            marker.actions.addTo(map),
+            marker.actions.icon('images/hightlight.svg', 'images/hightlight.svg')
+          ));
 
       },
 
