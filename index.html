@@ -21,8 +21,6 @@
 
   <style>
     .myIcon {
-      height: 200px;
-      width: 200px;
       background-color: rgba(0,0,0,0);
       border: 2px solid white;
       box-shadow: inset 0px 0px 5px 10px rgba(0, 183, 255, 0.7), 0px 0px 5px 5px white;
@@ -139,7 +137,8 @@
 
   <script>
     var myIcon = L.divIcon({
-      className: 'myIcon'
+      className: 'myIcon',
+      iconSize: 30px
     });
   
     var resizePID;
