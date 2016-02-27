@@ -155,7 +155,7 @@
     
   
     
-    $(window).resize(function(){
+    window.onresize = function() {
       var doc_w = $( document ).width();
       var doc_h = $( document ).height();
       var win_w = $(window).width();
@@ -163,7 +163,7 @@
       console.log('Docwidth is ' + doc_w + '     docheight is ' + doc_h + '     winwidth is ' + win_w  + '     winheight is ' + win_h);
       $('#slides_container').css('width', 0.3125*win_w);
       $('#slides_container').css('height', 0.7265*win_h);
-    });
+    }
     
     
     var resizePID;
