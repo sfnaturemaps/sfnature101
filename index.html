@@ -152,6 +152,12 @@
     var winheight = $(window).height();
     console.log('Docwidth is ' + docwidth + '     docheight is ' + docheight + '     winwidth is ' + winwidth  + '     winheight is ' + winheight);
     
+    $(window).resize(function(){
+      $('#slides_container').css('width', 0.3125*docwidth);
+      $('#slides_container').css('height', 0.7265*docheight);
+		});
+    
+    
     var resizePID;
     function clearResize() {
       clearTimeout(resizePID);
