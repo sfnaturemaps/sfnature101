@@ -147,7 +147,10 @@
     });
   
     var docwidth = $( document ).width();
-    console.log(docwidth);
+    var docheight = $( document ).height();
+    var winwidth = $(window).width();
+    var winheight = $(window).height();
+    console.log('Docwidth is ' + docwidth + '     docheight is ' + docheight + '     winwidth is ' + winwidth  + '     winheight is ' + winheight);
     
     var resizePID;
     function clearResize() {
