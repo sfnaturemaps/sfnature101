@@ -140,11 +140,15 @@
   <!-- <script src="http://cartodb.github.io/odyssey.js/dist/odyssey.js" charset="UTF-8"></script> -->
 
   <script>
+    //highlight icon - highlights each marker
     var myIcon = L.divIcon({
       className: 'myIcon',
       iconSize: [50,50]
     });
   
+    var docwidth = $( document ).width();
+    console.log(docwidth);
+    
     var resizePID;
     function clearResize() {
       clearTimeout(resizePID);
