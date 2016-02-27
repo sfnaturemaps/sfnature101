@@ -149,12 +149,20 @@
     var docwidth = $( document ).width();
     var docheight = $( document ).height();
     var winwidth = $(window).width();
-    var winheight = $(window).height();
-    console.log('Docwidth is ' + docwidth + '     docheight is ' + docheight + '     winwidth is ' + winwidth  + '     winheight is ' + winheight);
+    var winheight = $(window).height();  
+    $('#slides_container').css('width', 0.3125*winwidth);
+    $('#slides_container').css('height', 0.7265*winheight);
+    
+  
     
     $(window).resize(function(){
-      $('#slides_container').css('width', 0.3125*winwidth);
-      $('#slides_container').css('height', 0.7265*winheight);
+      var doc_w = $( document ).width();
+      var doc_h = $( document ).height();
+      var win_w = $(window).width();
+      var win_h = $(window).height();
+      console.log('Docwidth is ' + doc_w + '     docheight is ' + doc_h + '     winwidth is ' + win_w  + '     winheight is ' + win_h);
+      $('#slides_container').css('width', 0.3125*win_w);
+      $('#slides_container').css('height', 0.7265*win_h);
     });
     
     
