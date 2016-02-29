@@ -98,7 +98,12 @@
       background-position: center;
     }
     img {
+      margin: 10px 0;
       width: 580px;
+    }
+    
+    .photocredit {
+      font-size: 8px;
     }
   </style>
 
@@ -338,6 +343,14 @@
         $('.boxes').removeClass('activebox');
         $(this).addClass('activebox');
     });
+    
+    var elements = document.getElementsByTagName("a");
+    for (var i = 0; i < elements.length; i++) {
+      if (elements[i].innerHTML == 'Photo Credit') {
+        elements[i].className = "photocredit"
+      }
+      else {}
+    }
     
   </script>
 
