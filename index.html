@@ -262,6 +262,14 @@
         $('a').attr('target', '_blank');
         
         L.control.zoom({position: 'topright'}).addTo(map);
+        
+        var elements = document.getElementsByTagName("a");
+        for (var i = 0; i < elements.length; i++) {
+          if (elements[i].innerHTML == 'Photo Credit') {
+            elements[i].className = "photocredit";
+          }
+          else {}
+        }
       },
       update: function(actions) {
         var self = this;
