@@ -28,14 +28,14 @@
       border: 2px solid white;
       box-shadow: inset 0px 0px 20px 0px rgba(157, 0, 230, 0.8), 0px 0px 5px 0px white; /*0, 183, 255*/ 
       border-radius: 50%;
-      transform: translate(-100px, -100px);
     }
   
     #mainbox {
+      display: block;
       left: 0px;
       position: relative;
-      transform: translate(0, 100%);
-      width: 650px;
+      margin-top: 50px;
+      width: 700px;
       border: 1px solid black;
     }
     .boxes {
@@ -178,7 +178,9 @@
     var winheight = $(window).height();  
     $('#slides_container').css('width', 0.3125*winwidth);
     $('#slides_container').css('height', 0.7265*winheight);
-    
+    var fontrate = Math.round(docwidth/1920);
+    $('.boxes').css('font-size', String(fontrate*24) + 'px');
+    $('.boxes').css('padding', String(fontrate*20) + 'px'); 
   
     
     window.onresize = function() {
@@ -192,8 +194,8 @@
       $('#slides_container').css('height', 0.7265*win_h);
       $('#mainbox').css('top', 0.7265*win_h + 60);
       
-      $('.boxes').css('font-size', rate*24);
-      $('.boxes').css('padding', rate*20);      
+      $('.boxes').css('font-size', String(rate*24) + 'px');
+      $('.boxes').css('padding', String(rate*20) + 'px');      
     }
     
     
