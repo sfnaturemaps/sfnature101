@@ -34,7 +34,7 @@
     #mainbox {
       left: 0px;
       position: relative;
-      transform: translate(100%, 0);
+      transform: translate(0, 100%);
       width: 650px;
       border: 1px solid black;
     }
@@ -188,7 +188,7 @@
       var win_h = $(window).height();
       var rate = Math.round(doc_w/docwidth);
       console.log('Docwidth is ' + doc_w + '     docheight is ' + doc_h + '     winwidth is ' + win_w  + '     winheight is ' + win_h);
-      $('#slides_container').css('width', 0.3125*win_w);
+      $('#slides_container').css('width', 0.4*win_w); //0.3125
       $('#slides_container').css('height', 0.7265*win_h);
       $('#mainbox').css('top', 0.7265*win_h + 60);
       
