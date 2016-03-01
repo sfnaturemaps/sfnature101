@@ -165,12 +165,14 @@
       var doc_h = $( document ).height();
       var win_w = $(window).width();
       var win_h = $(window).height();
+      var rate = round(doc_w/docwidth);
       console.log('Docwidth is ' + doc_w + '     docheight is ' + doc_h + '     winwidth is ' + win_w  + '     winheight is ' + win_h);
       $('#slides_container').css('width', 0.3125*win_w);
       $('#slides_container').css('height', 0.7265*win_h);
       $('#mainbox').css('top', 0.7265*win_h + 60);
-      $('.boxes').css('font-size', int(doc_w/docwidth)*24);
-      $('.boxes').css('padding', int(doc_w/docwidth)*20);      
+      
+      $('.boxes').css('font-size', rate*24);
+      $('.boxes').css('padding', rate*20);      
     }
     
     
