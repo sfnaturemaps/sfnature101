@@ -34,9 +34,10 @@
     #mainbox {
       left: 0px;
       position: absolute;
-      top: 810px;
+      top: 820px;
       width: 650px;
       height: 100px;
+      border: 1px solid black;
     }
     .boxes {
       position: relative;
@@ -165,7 +166,7 @@
       var doc_h = $( document ).height();
       var win_w = $(window).width();
       var win_h = $(window).height();
-      var rate = round(doc_w/docwidth);
+      var rate = Math.round(doc_w/docwidth);
       console.log('Docwidth is ' + doc_w + '     docheight is ' + doc_h + '     winwidth is ' + win_w  + '     winheight is ' + win_h);
       $('#slides_container').css('width', 0.3125*win_w);
       $('#slides_container').css('height', 0.7265*win_h);
