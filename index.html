@@ -91,7 +91,7 @@
     #slides_container h1,#slides_container h2,#slides_container h3,#slides_container h4,#slides_container h5,#slides_container h6 {
       font-family:'Proxima N W01 Bold', Sans-serif;
       color:#333;
-      font-size:34px
+      font-size:34px;
     }
     
     #slides_container h1:after,#slides_container h2:after,#slides_container h3:after,#slides_container h4:after,#slides_container h5:after,#slides_container h6:after{
@@ -101,7 +101,7 @@
       content:" ";
       text-shadow:none;
       background-color:#333;
-      width:140px
+      width:140px;
     }
     
     #dots li a:before{
@@ -178,23 +178,23 @@
     
     console.log('Docwidth is ' + docwidth + '     docheight is ' + docheight + '     winwidth is ' + winwidth  + '     winheight is ' + winheight);
     
-    if (winwidth == 1920 AND winheight ==1080) {
-      $('#mainbox').css('top', '800');
-      $('.boxes').css('padding', '15px');
-      $('.boxes').css('line-height', '24px');
-      $('.boxes').css('font-size', '24px');
-      $('#slides_container').css('height', '720');
-    }
-    else if (winwidth == 1024 AND winheight == 768) {
-      $('#slides_container').css('width', '600px');
-    }
-    else {}
+    // if (winwidth == 1920 AND winheight ==1080) {
+    //   $('#mainbox').css('top', '800');
+    //   $('.boxes').css('padding', '15px');
+    //   $('.boxes').css('line-height', '24px');
+    //   $('.boxes').css('font-size', '24px');
+    //   $('#slides_container').css('height', '720');
+    // }
+    // else if (winwidth == 1024 AND winheight == 768) {
+    //   $('#slides_container').css('width', '600px');
+    // }
+    // else {}
     
     
 
-    var fontrate = Math.round(docwidth/1920);
-    $('.boxes').css('font-size', String(fontrate*24) + 'px');
-    $('.boxes').css('padding', String(fontrate*20) + 'px'); 
+    // var fontrate = Math.round(docwidth/1920);
+    // $('.boxes').css('font-size', String(fontrate*24) + 'px');
+    // $('.boxes').css('padding', String(fontrate*20) + 'px'); 
   
     
     // window.onresize = function() {
