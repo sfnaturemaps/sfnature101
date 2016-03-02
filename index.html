@@ -192,7 +192,7 @@
     var myIcon = L.divIcon({
       className: 'myIcon',
       iconSize: [50,50], 
-      iconAnchor: [-1,5]
+      iconAnchor: [-1,1]
     });
   
     var docwidth = $( document ).width();
@@ -202,17 +202,23 @@
     
     console.log('Docwidth is ' + docwidth + '     docheight is ' + docheight + '     winwidth is ' + winwidth  + '     winheight is ' + winheight);
     
-    // if (winwidth == 1920 AND winheight ==1080) {
-    //   $('#mainbox').css('top', '800');
-    //   $('.boxes').css('padding', '15px');
-    //   $('.boxes').css('line-height', '24px');
-    //   $('.boxes').css('font-size', '24px');
-    //   $('#slides_container').css('height', '720');
-    // }
-    // else if (winwidth == 1024 AND winheight == 768) {
-    //   $('#slides_container').css('width', '600px');
-    // }
-    // else {}
+    function changeSize(){
+      if (winwidth == 1920 AND winheight ==1080) {
+        $('#mainbox').css('top', '800');
+        $('.boxes').css('padding', '15px');
+        $('.boxes').css('line-height', '24px');
+        $('.boxes').css('font-size', '24px');
+        $('#slides_container').css('height', '720');
+      }
+      else {}
+    }
+      
+    changeSize();
+    
+      // else if (winwidth == 1024 AND winheight == 768) {
+      //   $('#slides_container').css('width', '600px');
+      // }
+      // else {}
     
     
 
