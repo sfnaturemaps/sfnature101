@@ -22,8 +22,8 @@
   <style>
     .myIcon {
       display: block;
-      height: 100px;
-      width: 100px;
+      height: 70px;
+      width: 70px;
       background-color: rgba(0,0,0,0);
       border: 2px solid white;
       box-shadow: inset 0px 0px 20px 0px rgba(157, 0, 230, 1), 0px 0px 5px 0px white; /*0, 183, 255*/ 
@@ -191,8 +191,8 @@
     //highlight icon - highlights each marker
     var myIcon = L.divIcon({
       className: 'myIcon',
-      iconSize: [100,100], 
-      iconAnchor: [27,19]
+      iconSize: [70,70], 
+      iconAnchor: [37,29]
     });
   
     var docwidth = $( document ).width();
@@ -203,7 +203,7 @@
     console.log('Docwidth is ' + docwidth + '     docheight is ' + docheight + '     winwidth is ' + winwidth  + '     winheight is ' + winheight);
     
     function changeSize(){
-      if (winwidth > 1900 && winheight > 1000) {
+      if (winwidth > 1900 && winheight > 900) {
         $('#mainbox').css('top', '745');
         $('.boxes').css('padding', '15px');
         $('.boxes').css('line-height', '24px');
