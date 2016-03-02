@@ -192,7 +192,7 @@
     var myIcon = L.divIcon({
       className: 'myIcon',
       iconSize: [50,50], 
-      iconAnchor: [0,0]
+      iconAnchor: [5,5]
     });
   
     var docwidth = $( document ).width();
@@ -204,11 +204,14 @@
     
     function changeSize(){
       if (winwidth > 1900 && winheight > 1000) {
-        $('#mainbox').css('top', '800');
+        $('#mainbox').css('top', '750');
         $('.boxes').css('padding', '15px');
         $('.boxes').css('line-height', '24px');
         $('.boxes').css('font-size', '24px');
         $('#slides_container').css('height', '720');
+        $('#slides_container').css('top', '40');
+        $('#slides_container').css('left', '40');
+        $('#slides').css('height', '600');
       }
       else {}
     }
