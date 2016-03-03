@@ -207,7 +207,9 @@
         $('#slides_container').css('height', '720px');
         $('#slides_container').css('top', '40px');
         $('#slides_container').css('left', '40px');
-        $('#slides, .slide.selected.selected_slide, .slide.selected.selected_slide.scrolled').css('height', '600px');
+        $('#slides').css('height', '600px !important');
+        $('.slide.selected.selected_slide').css('height', '600px !important');
+        $('.slide.selected.selected_slide.scrolled').css('height', '600px !important');
       }
       else if (winwidth <= 1024 && winheight <=768){
         $('#slides_container').css('width', '550px');
