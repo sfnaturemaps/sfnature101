@@ -217,16 +217,11 @@
       
     changeSize();
     
-    $(document).ready(function(){
-      $('a').attr('target', '_blank');
+    $(document).on('click', 'a', function(e){ 
+        e.preventDefault(); 
+        var url = $(this).attr('href'); 
+        window.open(url, '_blank');
     });
-    
-    window.onload = function(){
-      var atags = document.getElementsByTagName('a');
-      for (var i=0; i<atags.length; i++){
-        atags[i].setAttribute('target', '_blank');
-      }
-    }
     
       // else if (winwidth == 1024 AND winheight == 768) {
       //   $('#slides_container').css('width', '600px');
