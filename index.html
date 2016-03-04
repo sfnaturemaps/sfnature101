@@ -217,16 +217,16 @@
         $('#slides_container').css('left', '40px');
         var slides = document.getElementById("#slides");
         var sel_slides = document.getElementsByClassName(".slide.selected.selected_slide");
-        var sel_slides_scrolled = document.getElementsByClassName(".slide.selected.selected_slide.scrolled");
+        // var sel_slides_scrolled = document.getElementsByClassName(".slide.selected.selected_slide.scrolled");
         for(var i=0; i<slides.length; i++){
           slides[i].style.setProperty( 'height', '600px', 'important' );
         }
         for(var i=0; i<sel_slides.length; i++){
           sel_slides[i].style.setProperty( 'height', '600px', 'important' );
         }
-        for(var i=0; i<sel_slides_scrolled.length; i++){
-          sel_slides_scrolled[i].style.setProperty( 'height', '600px', 'important' );
-        }
+        // for(var i=0; i<sel_slides_scrolled.length; i++){
+        //   sel_slides_scrolled[i].style.setProperty( 'height', '600px', 'important' );
+        // }
       }
       else if (winwidth <= 1024 && winheight <=768){
         $('#slides_container').css('width', '550px');
