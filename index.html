@@ -218,13 +218,13 @@
         var slides = document.getElementById("#slides");
         var sel_slides = document.getElementsByClassName(".slide.selected.selected_slide");
         var sel_slides_scrolled = document.getElementsByClassName(".slide.selected.selected_slide.scrolled");
-        for(i=0; i<slides.length; i++){
+        for(var i=0; i<slides.length; i++){
           slides[i].style.setProperty( 'height', '600px', 'important' );
         }
-        for(i=0; i<slides.length; i++){
+        for(var i=0; i<slides.length; i++){
           sel_slides[i].style.setProperty( 'height', '600px', 'important' );
         }
-        for(i=0; i<slides.length; i++){
+        for(var i=0; i<slides.length; i++){
           sel_slides_scrolled[i].style.setProperty( 'height', '600px', 'important' );
         }
       }
