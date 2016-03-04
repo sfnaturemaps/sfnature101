@@ -215,9 +215,18 @@
         $('#slides_container').css('height', '720px');
         $('#slides_container').css('top', '40px');
         $('#slides_container').css('left', '40px');
-        document.getElementById("#slides").style.setProperty( 'height', '600px', 'important' );
-        document.getElementsByClassName(".slide.selected.selected_slide").style.setProperty( 'height', '600px', 'important' );
-        document.getElementsByClassName(".slide.selected.selected_slide.scrolled").style.setProperty( 'height', '600px', 'important' );
+        var slides = document.getElementById("#slides");
+        var sel_slides = document.getElementsByClassName(".slide.selected.selected_slide");
+        var sel_slides_scrolled = document.getElementsByClassName(".slide.selected.selected_slide.scrolled");
+        for(i=0; i<slides.length; i++){
+          slides[i].style.setProperty( 'height', '600px', 'important' );
+        }
+        for(i=0; i<slides.length; i++){
+          sel_slides[i].style.setProperty( 'height', '600px', 'important' );
+        }
+        for(i=0; i<slides.length; i++){
+          sel_slides_scrolled[i].style.setProperty( 'height', '600px', 'important' );
+        }
       }
       else if (winwidth <= 1024 && winheight <=768){
         $('#slides_container').css('width', '550px');
