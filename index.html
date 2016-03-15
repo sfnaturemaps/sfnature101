@@ -26,17 +26,17 @@
       width: 70px;
       background-color: rgba(0,0,0,0);
       border: 2px solid white;
-      box-shadow: inset 0px 0px 20px 0px rgba(157, 0, 230, 1), 0px 0px 5px 0px white; /*0, 183, 255*/ 
+      box-shadow: inset 0px 0px 20px 0px rgba(157, 0, 230, 1), 0px 0px 5px 0px white; /*0, 183, 255*/
       border-radius: 50%;
     }
-  
+
     #mainbox {
       left: 0px;
       position: absolute;
       top: 615px;
       width: 650px;
     }
-    
+
     .boxes {
       position: relative;
       display: inline-block;
@@ -87,26 +87,26 @@
       padding: 16px;
       padding-right: 10px;
     }
-    
+
     #slides, .slide.selected.selected_slide {
       height: 490px;
-    } 
-    
+    }
+
     .slide.selected.selected_slide.scrolled {
       height: 490px !important;
     }
-    
+
     .override_important {
       height: 600px !important;
     }
-    
+
     #slides_container h1,#slides_container h2,#slides_container h3,#slides_container h4,#slides_container h5,#slides_container h6 {
       font-family:'Proxima N W01 Bold', Sans-serif;
       color:#333;
       font-size:34px;
       margin-top: 5px;
     }
-    
+
     #slides_container h1:after,#slides_container h2:after,#slides_container h3:after,#slides_container h4:after,#slides_container h5:after,#slides_container h6:after{
       display:block;
       margin:10px 0 0 0;
@@ -116,7 +116,7 @@
       background-color:#333;
       width:140px;
     }
-    
+
     #dots li a:before{
       font-size: 28px;
     }
@@ -135,24 +135,24 @@
       margin: 10px 0;
       width: 100%;
     }
-    
+
     #slides_container .slide.scrolled img {
       display:block;
       margin:10px 0;
       width:100%
-      
+
     }
-    
+
     .photocredit {
       font-size: 8px;
     }
-    
+
     /*div#credits span {*/
     /*  font-size: 10px !important;*/
     /*  line-height: 26px !important;*/
     /*  padding: 0px 0 0 0 !important;*/
     /*}*/
-     
+
   </style>
 
 </head>
@@ -174,10 +174,10 @@
       </ul>
     </div>
 
-    <div id="mainbox">  
+    <div id="mainbox">
       <button id="wildlife_box" class="boxes activebox">WILDLIFE</button>
       <button id="wildlands_box" class="boxes">WILDLANDS</button>
-      <button id="bike-rides_box" class="boxes">BIKE RIDES</button>
+      <button id="bike-rides_box" class="boxes">WILD RIDES</button>
     </div>
 
   </div>
@@ -196,17 +196,17 @@
     //highlight icon - highlights each marker
     var myIcon = L.divIcon({
       className: 'myIcon',
-      iconSize: [70,70], 
+      iconSize: [70,70],
       iconAnchor: [37,29]
     });
-  
+
     var docwidth = $( document ).width();
     var docheight = $( document ).height();
     var winwidth = $(window).width();
-    var winheight = $(window).height();  
-    
+    var winheight = $(window).height();
+
     console.log('Docwidth is ' + docwidth + '     docheight is ' + docheight + '     winwidth is ' + winwidth  + '     winheight is ' + winheight);
-    
+
     function changeSize(){
       if (winwidth > 1900 && winheight > 900) {
         $('#mainbox').css('top', '745px');
@@ -224,33 +224,33 @@
       }
       else {}
     }
-      
+
     changeSize();
-    
-    $(document).on('click', 'div#slides a', function(e){ 
-        e.preventDefault(); 
-        var url = $(this).attr('href'); 
+
+    $(document).on('click', 'div#slides a', function(e){
+        e.preventDefault();
+        var url = $(this).attr('href');
         window.open(url, '_blank');
     });
-    
-    $(document).on('click', 'div.leaflet-popup-content a', function(e){ 
-        e.preventDefault(); 
-        var url = $(this).attr('href'); 
+
+    $(document).on('click', 'div.leaflet-popup-content a', function(e){
+        e.preventDefault();
+        var url = $(this).attr('href');
         window.open(url, '_blank');
     });
-    
+
       // else if (winwidth == 1024 AND winheight == 768) {
       //   $('#slides_container').css('width', '600px');
       // }
       // else {}
-    
-    
+
+
 
     // var fontrate = Math.round(docwidth/1920);
     // $('.boxes').css('font-size', String(fontrate*24) + 'px');
-    // $('.boxes').css('padding', String(fontrate*20) + 'px'); 
-  
-    
+    // $('.boxes').css('padding', String(fontrate*20) + 'px');
+
+
     // window.onresize = function() {
     //   var doc_w = $( document ).width();
     //   var doc_h = $( document ).height();
@@ -261,12 +261,12 @@
     //   $('#slides_container').css('width', 0.4*win_w); //0.3125
     //   $('#slides_container').css('height', 0.7265*win_h);
     //   $('#mainbox').css('top', 0.7265*win_h + 60);
-      
+
     //   $('.boxes').css('font-size', String(rate*24) + 'px');
-    //   $('.boxes').css('padding', String(rate*20) + 'px');      
+    //   $('.boxes').css('padding', String(rate*20) + 'px');
     // }
-    
-    
+
+
     var resizePID;
     function clearResize() {
       clearTimeout(resizePID);
@@ -329,7 +329,7 @@
       init: function() {
         var seq = O.Triggers.Sequential();
         var baseurl = this.baseurl = 'http://{s}.api.cartocdn.com/base-light/{z}/{x}/{y}.png';
-        var map = this.map = L.map('map', {zoomControl: false}).setView([0, 0.0], 4);
+        var map = this.map = L.map('map', {zoomControl: false,scrollWheelZoom: false}).setView([0, 0.0], 4);
         var basemap = this.basemap = L.tileLayer(baseurl, {
           attribution: 'data OSM - map CartoDB'
         }).addTo(map);
@@ -344,7 +344,7 @@
         this.seq = seq;
         this.slides = slides;
         this.progress = O.UI.DotProgress('dots').count(0);
-        //added by DKD at GreenInfo: When clicking on one of the boxes under the story panel, 
+        //added by DKD at GreenInfo: When clicking on one of the boxes under the story panel,
         //seq.current(0) sets the story slide to the first one
         $('#wildlands_box').click(function(){
           seq.current(0);
@@ -356,9 +356,9 @@
           seq.current(0);
         });
         $('a').attr('target', '_blank');
-        
+
         L.control.zoom({position: 'topright'}).addTo(map);
-        
+
         // var elements = document.getElementsByTagName("a");
         // for (var i = 0; i < elements.length; i++) {
         //   if (elements[i].innerHTML == 'Photo Credit') {
@@ -441,13 +441,13 @@
         this.seq.current(n);
       },
     });
-    
+
     //activate .boxes active css style
     $('.boxes').click(function(){
         $('.boxes').removeClass('activebox');
         $(this).addClass('activebox');
     });
-    
+
     var elements = document.getElementsByTagName("a");
     for (var i = 0; i < elements.length; i++) {
       console.log(elements[i].innerHTML);
@@ -456,7 +456,7 @@
       }
       else {}
     }
-    
+
   </script>
 
   <script>
@@ -475,44 +475,50 @@
 -baseurl: "http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg"
 -title: "WILDLIFE"
 -author: "SF Nature Mapping Project"
--vizjson: "https://sfnaturemaps.cartodb.com/api/v2/viz/cf171ec2-da8a-11e5-9b00-0e787de82d45/viz.json"
+-vizjson: "https://sfnaturemaps.cartodb.com/api/v2/viz/3b01d1b6-ea73-11e5-83d9-0e674067d321/viz.json"
 -center: [37.761745, -122.494242]
 -zoom: 14
 ```
 
-#Pier 39 - Sea Lions
+#Pier 39
 ```
-L.marker([37.8110, -122.4107],{icon: myIcon}).bindPopup('<a href="https://www.google.com/maps/dir//PIER+39,+Beach+Street+%26+The+Embarcadero,+San+Francisco,+CA+94133/@37.8087356,-122.4448404,13z/data=!3m1!4b1!4m8!4m7!1m0!1m5!1m1!1s0x808580fc8bb3211d:0xbaf631600de6b39e!2m2!1d-122.409821!2d37.808673">Test</a>').actions.addRemove(S.map)
+L.marker([37.8110, -122.4107],{icon: myIcon}).actions.addRemove(S.map)
+- center: [37.8110, -122.4107]
 ```
 ![Sea Lions](images/sealions.png)
 Pier 39 is not just for tourists shivering in Bermuda shorts. It’s also been home to sea lions since the early 1990s, when they began hauling out onto the dock and turning the surrounding pier into a prime wildlife watching spot. The sea lions, protected under the Marine Mammal Protection Act, can still be seen today sunning on the pier.  A few are here year-round, but best time to visit is late July to mid-May. [Read more.](http://www.pier39.com/home/the-sea-lion-story/sea-lion-qa/)
 
 
-#Botanical Garden - Birds
+#Botanical Garden
 ```
-L.marker([37.7684, -122.4718],{icon: myIcon}).bindPopup('<a href="http://www.google.com">Test</a>').actions.addRemove(S.map)
+L.marker([37.7684, -122.4718],{icon: myIcon}).actions.addRemove(S.map)
+- center: [37.769259, -122.485524]
+```
+![Kid with binoculars](images\scrubjay.jpg)
+Plants aren’t the only attraction at the 55-acre San Francisco Botanical Garden in Golden Gate Park. Turns out that a garden with 8,000 kinds of plants also attracts a crazy variety of birds! And with lots of nearby parking, easy paths, benches, and bathrooms, this might be the most kid-friendly birding spot anywhere.
+
+#Strawberry Hill/Stow Lake
+```
+L.marker([37.7698, -122.4667],{icon: myIcon}).actions.addRemove(S.map)
 - center: [37.769259, -122.485524]
 ```
 ![Swallowtail](images\swallowtail.png)
-Plants aren’t the only attraction at the 55-acre San Francisco Botanical Garden in Golden Gate Park. Turns out that a garden with 8,000 kinds of plants also attracts a crazy variety of birds! And with lots of nearby parking, easy paths, benches, and bathrooms, this might be the most kid-friendly birding spot anywhere.
-
-#Strawberry Hill/Stow Lake- Butterflies
-```
-L.marker([37.7698, -122.4667],{icon: myIcon}).bindPopup('<a href="http://www.google.com">Test</a>').actions.addRemove(S.map)
-- center: [37.769259, -122.485524]
-```
 Swallowtail butterflies are big and beautiful! Strawberry Hill -- really an island on Stow Lake -- is great swallowtail butterfly habitats. While you’re out butterfly spotting, check out the hill’s trails, waterfall, picnic sites, and incredible views. Strawberry Hill is a perfect escape into nature right in Golden Gate Park.
 
-#Land's End/Sutro Heights - Birds
+#Land's End/Sutro Heights
 ```
-L.marker([37.7850, -122.5096],{icon: myIcon}).bindPopup('<a href="http://www.google.com">Test</a>').actions.addRemove(S.map)
+L.marker([37.7850, -122.5096],{icon: myIcon}).actions.addRemove(S.map)
+- center: [37.7850, -122.5096]
 ```
-The cliffs of Land’s End are amazing all year, but fall is the time to come here often and watch for migrating birds especially hawks! On the far northwest edge of the peninsula, San Francisco’s Sutro Heights Park and Land’s End offer trails, rugged terrain, and great ocean views. 
+![Red-tailed hawk](images\redtail.jpg)
+The cliffs of Land’s End are amazing all year, but fall is the time to come here often and watch for migrating birds especially hawks! On the far northwest edge of the peninsula, San Francisco’s Sutro Heights Park and Land’s End offer trails, rugged terrain, and great ocean views.
 
-#Heron's Head Park - Birds
+#Heron's Head Park
 ```
-L.marker([37.7380, -122.3729],{icon: myIcon}).bindPopup('<a href="http://www.google.com">Test</a>').actions.addRemove(S.map)
+L.marker([37.7380, -122.3729],{icon: myIcon}).actions.addRemove(S.map)
+- center: [37.7380, -122.3729]
 ```
+![Avocets](images\heronshead.jpg)
 This 22-acre park near Hunter’s Point is a great place to see all kinds of seabirds, cool marshes, and big ships going by in the bay. Learn more about the wildlife in the park at the Heron’s Head Park EcoCenter, or walk south along the shore to a playground at India Basin Shoreline Park.
 
 
@@ -523,86 +529,102 @@ This 22-acre park near Hunter’s Point is a great place to see all kinds of sea
 -baseurl: "http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg"
 -title: "WILDLANDS"
 -author: "SF Nature Mapping Project"
--vizjson: "https://sfnaturemaps.cartodb.com/api/v2/viz/cf171ec2-da8a-11e5-9b00-0e787de82d45/viz.json"
+-vizjson: "https://sfnaturemaps.cartodb.com/api/v2/viz/3b01d1b6-ea73-11e5-83d9-0e674067d321/viz.json"
 -center: [37.761745, -122.494242]
 -zoom: 14
 ```
 
 #Crissy Field
 ```
-L.marker([37.8110, -122.4107],{icon: myIcon}).bindPopup('<a href="http://www.google.com">Test</a>').actions.addRemove(S.map)
+L.marker([37.804909,-122.461081],{icon: myIcon}).actions.addRemove(S.map)
+- center: [37.804909,-122.461081]
 ```
+![Boy at Crissy Field](images\crissyfieldkid.jpg)
 With the Golden Gate Bridge looming overhead and the wild bay at your feet, you can’t go wrong at Crissy Field. Build a sandcastle, play on the grass, bring a picnic, watch windsurfers go by, and definitely keep an eye out for porpoises and dolphins!
 
 #Land's End
 ```
-L.marker([37.7684, -122.4718],{icon: myIcon}).bindPopup('<a href="http://www.google.com">Test</a>').actions.addRemove(S.map)
+L.marker([37.785443,-122.50618],{icon: myIcon}).actions.addRemove(S.map)
+- center: [37.785443,-122.50618]
 ```
-NO INFO YET 
+![Hiking at Land's End](images\landsendkids.jpg)
+Land's End, part of the Golden Gate National Recreation Area, features trails, picnic areas, rugged terrain, and great ocean views. During low-tide, you might catch a glimpse of an old shipwreck off this park’s rocky and windswept shoreline. Be sure to stop by the visitor center to learn about the history of the area.
 
 #Glen Canyon
 ```
-L.marker([37.7698, -122.4667],{icon: myIcon}).bindPopup('<a href="http://www.google.com">Test</a>').actions.addRemove(S.map)
+L.marker([37.736591,-122.439902],{icon: myIcon}).actions.addRemove(S.map)
+- center: [37.736591,-122.439902]
 ```
+![Dog at Glen Canyon](images\glencanyondog.jpg)
 Glen Canyon Park is a sprawling urban canyon with walking and hiking trails that offer views of wildlife, geologic formations, springtime wildflowers, and plenty of jolly dogs. The 3.7 miles of trails through the canyon offer something for everyone, from leisurely walks to challenging hikes. The park is also home to Islais Creek, the largest remaining free-flowing creek in the city.
 
 #Corona Heights
 ```
-L.marker([37.7850, -122.5096],{icon: myIcon}).bindPopup('<a href="http://www.google.com">Test</a>').actions.addRemove(S.map)
+L.marker([37.765312,-122.438824],{icon: myIcon}).actions.addRemove(S.map)
+- center: [37.765312,-122.438824]
 ```
+![Corona Heights with hikers](images\coronaheights.jpg)
 Corona Heights Park in the Castro boasts some of the best views in city. Hike up to the top and keep an eye out for cool rock formations, wildflowers, and callippe silverspot butterflies. In fall 2016, the Randall Museum will reopen, cementing this hill’s reputation as one of the top family destinations in the city.
-
 
 #Twin Peaks
 ```
-L.marker([37.7380, -122.3729],{icon: myIcon}).bindPopup('<a href="http://www.google.com">Test</a>').actions.addRemove(S.map)
+L.marker([37.75494,-122.446645],{icon: myIcon}).actions.addRemove(S.map)
+- center: [37.75494,-122.446645]
 ```
-Most visitors enjoy Twin Peaks’ stunning views from the north peak parking lot, but don’t miss the chance to hike up the 0.7 mile trail network to the very top, where you can find 360-degree views of the San Francisco Bay area. The park, nested in grassland and coastal scrub habitats, also offers glimpses of the occasional coyote and mission blue butterfly. 
+![Twin Peaks at sunset](images\twinpeaks.jpg)
+Most visitors enjoy Twin Peaks’ stunning views from the north peak parking lot, but don’t miss the chance to hike up the 0.7 mile trail network to the very top, where you can find 360-degree views of the San Francisco Bay area. The park, nested in grassland and coastal scrub habitats, also offers glimpses of the occasional coyote and mission blue butterfly.
 
-
-
-</script>  
+</script>
 
 <script type="text/template" id="md_template3">
 ```
 -baseurl: "http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg"
 -title: "BIKE RIDES"
 -author: "SF Nature Mapping Project"
--vizjson: "https://sfnaturemaps.cartodb.com/api/v2/viz/cf171ec2-da8a-11e5-9b00-0e787de82d45/viz.json"
+-vizjson: "https://sfnaturemaps.cartodb.com/api/v2/viz/3b01d1b6-ea73-11e5-83d9-0e674067d321/viz.json"
 -center: [37.761745, -122.494242]
 -zoom: 14
 ```
 
-#Golden Gate Park - Sundays
+#Golden Gate Park
 ```
-L.marker([37.8110, -122.4107],{icon: myIcon}).bindPopup('<a href="http://www.google.com">Test</a>').actions.addRemove(S.map)
+L.marker([37.771261,-122.454643],{icon: myIcon}).actions.addRemove(S.map)
+- center: [37.771261,-122.454643]
 ```
-Though Golden Gate Park is open to bicyclists all days of the week, on Sundays and holidays the park’s main entrance on John F Kennedy Drive is closed to vehicles. That’s a great day to hit the park with your kids for safe pedalling among other bikers, runners, and rollerbladers. 
+![Sunday Streets in Golden Gate Park](images\sundaystreets.jpg)
+Though Golden Gate Park is open to bicyclists all days of the week, on Sundays and holidays the park’s main entrance on John F Kennedy Drive is closed to vehicles. That’s a great day to hit the park with your kids for safe pedalling among other bikers, runners, and rollerbladers.
 
-#Ocean Beach - Anytime
+#Ocean Beach
 ```
-L.marker([37.7684, -122.4718],{icon: myIcon}).bindPopup('<a href="http://www.google.com">Test</a>').actions.addRemove(S.map)
+L.marker([37.768755,-122.511334],{icon: myIcon}).actions.addRemove(S.map)
+- center: [37.768755,-122.511334]
 ```
-Ocean Beach, on the far western edge of the city, is often a good place to get sandblasted by a cold wind. But when the sun shines and the coast is warm, this 3.5-mile beach is paradise for biking, strolling, jogging, and kite-flying. 
+![Ocean Beach, running with dog](images\oceanbeach.jpg)
+Ocean Beach, on the far western edge of the city, is often a good place to get sandblasted by a cold wind. But when the sun shines and the coast is warm, this 3.5-mile beach is paradise for biking, strolling, jogging, and kite-flying.
 
-#Lake Merced - Anytime
+#Lake Merced
 ```
-L.marker([37.7698, -122.4667],{icon: myIcon}).bindPopup('<a href="http://www.google.com">Test</a>').actions.addRemove(S.map)
+L.marker([37.726641,-122.499581],{icon: myIcon}).actions.addRemove(S.map)
+- center: [37.726641,-122.499581]
 ```
+![Fishing at Lake Merced](images\lakemerced.jpg)
 Lake Merced, in southwest San Francisco, is a large freshwater lake popular with hikers, cyclists, boaters, and nature lovers. The park features paved trails, a fishing pier and boathouse, and several picnic areas.
 
-#Marina Green/Crissy Field - Weekdays
+#Marina Green/Crissy Field
 ```
-L.marker([37.7850, -122.5096],{icon: myIcon}).bindPopup('<a href="http://www.google.com">Test</a>').actions.addRemove(S.map)
+L.marker([37.804075,-122.466295],{icon: myIcon}).actions.addRemove(S.map)
+- center: [37.804075,-122.466295]
 ```
+![Soccer at Marina Green](images\marinagreen.jpg)
 Crissy Field offers a wide array of activities for outdoor enthusiasts and nature lovers. With trails, picnic areas, beaches, and open green spaces, this 100-acre park in the Presidio is a great place to spend a day outside. Don’t miss the San Francisco Bay Trail, where visitors can bike, stroll, or jog with views of the Golden Gate Bridge. On weekends the paths become more crowded with a lot of fast bikes whizzing by.
 
-#Panhandle - Weekends
+#Panhandle
 ```
-L.marker([37.7380, -122.3729],{icon: myIcon}).bindPopup('<a href="http://www.google.com">Test</a>').actions.addRemove(S.map)
+L.marker([37.772698,-122.444944],{icon: myIcon}).actions.addRemove(S.map)
+- center: [37.772698,-122.444944]
 ```
+![Family ride on the Panhandle](images\panhandlefamily.jpg)
 Next to Golden Gate Park, this peninsula park offers a meandering bike path underneath magnificent hardwood trees. While bikers can whiz by during commute times, the park offers some concrete oases to wait for them to pass and for beginners to practice their biking skills.
-
 
 </script>
 
