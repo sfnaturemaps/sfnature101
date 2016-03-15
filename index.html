@@ -65,7 +65,7 @@
       padding-right: 5px !important;
       display: block !important;
       border: 2px solid #0074A1;
-      width: 600px;
+      width: 550px;
       height: 600px;
     }
     div {
@@ -200,32 +200,32 @@
       iconAnchor: [37,29]
     });
 
-    var docwidth = $( document ).width();
-    var docheight = $( document ).height();
-    var winwidth = $(window).width();
-    var winheight = $(window).height();
+    // var docwidth = $( document ).width();
+    // var docheight = $( document ).height();
+    // var winwidth = $(window).width();
+    // var winheight = $(window).height();
 
-    console.log('Docwidth is ' + docwidth + '     docheight is ' + docheight + '     winwidth is ' + winwidth  + '     winheight is ' + winheight);
+    // console.log('Docwidth is ' + docwidth + '     docheight is ' + docheight + '     winwidth is ' + winwidth  + '     winheight is ' + winheight);
 
     function changeSize(){
-      if (winwidth > 1900 && winheight > 900) {
-        $('#mainbox').css('top', '745px');
-        $('.boxes').css('padding', '15px');
-        $('.boxes').css('line-height', '24px');
-        $('.boxes').css('font-size', '24px');
-        $('#slides_container').css('height', '720px');
-        $('#slides_container').css('top', '40px');
-        $('#slides_container').css('left', '40px');
-        $('#slides').css('height','600px');
-        $('.slide.selected.selected_slide').css('height','600px');
-      }
-      else if (winwidth <= 1024 && winheight <=768){
-        $('#slides_container').css('width', '550px');
-      }
-      else {}
-    }
+      // if (winwidth > 1900 && winheight > 900) {
+      //   $('#mainbox').css('top', '745px');
+      //   $('.boxes').css('padding', '15px');
+      //   $('.boxes').css('line-height', '24px');
+      //   $('.boxes').css('font-size', '24px');
+      //   $('#slides_container').css('height', '720px');
+      //   $('#slides_container').css('top', '40px');
+      //   $('#slides_container').css('left', '40px');
+      //   $('#slides').css('height','600px');
+      //   $('.slide.selected.selected_slide').css('height','600px');
+      // }
+    //   else if (winwidth <= 1024 && winheight <=768){
+    //     $('#slides_container').css('width', '550px');
+    //   }
+    //   else {}
+    // }
 
-    changeSize();
+    // changeSize();
 
     $(document).on('click', 'div#slides a', function(e){
         e.preventDefault();
