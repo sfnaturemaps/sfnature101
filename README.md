@@ -1,5 +1,4 @@
 ## Nature 101
-============
 
 This is a map aimed to help families connect to nature in San Francisco. Rather than piling on lots of loayers and data, we're trying an intentionally simpler approach. Pick a top five in just three categories and present those in a visually compelling way with short, chatty text.
 
