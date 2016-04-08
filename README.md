@@ -1,6 +1,6 @@
 ## Nature 101
 
-This is a map aimed to help families connect to nature in San Francisco. Rather than piling on lots of loayers and data, we're trying an intentionally simpler approach. Pick a top five in just three categories and present those in a visually compelling way with short, chatty text.
+This is a map aimed to help families connect to nature in San Francisco. Rather than piling on lots of layers and data, we're trying an intentionally simpler approach. Pick a top five in just three categories and present those in a visually compelling way with short, chatty text.
 
 This map uses a set of CartoDB map visualizations combined with [Odyssey.js](https://cartodb.github.io/odyssey.js/) to create a curated tour of great places to experience nature with kids in San Francisco.
 
